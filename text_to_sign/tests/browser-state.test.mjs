@@ -9,6 +9,58 @@ const html = readFileSync(
 );
 const source = readFileSync(new URL("../web/app.js", import.meta.url), "utf8");
 const flush = () => new Promise((resolve) => setImmediate(resolve));
+test('audio drop transcribes one valid file and rejects multiple files', async (t) => {
+  let calls = 0;
+  const f = await fixture(t, async () => { calls++; return response({text:'hello friend'}); });
+  const drop = (files) => {
+    const event = new f.w.Event('drop', {bubbles:true, cancelable:true});
+    Object.defineProperty(event, 'dataTransfer', {value:{files, types:['Files']}});
+    f.$('audio-drop-zone').dispatchEvent(event);
+    assert.equal(event.defaultPrevented, true);
+  };
+  const audio = new f.w.File(['audio fixture'], 'speech.wav', {type:'audio/wav'});
+  drop([audio, audio]);
+  assert.equal(calls, 0);
+  drop([new f.w.File(['text'], 'wrong.txt')]);
+  assert.equal(calls, 0);
+  assert.match(f.$('transcript-feedback').textContent, /Unsupported audio file/);
+  drop([audio]);
+  await flush();
+  assert.equal(calls, 1);
+  assert.equal(f.$('message').value, 'hello friend');
+  assert.equal(f.$('transcript-feedback').dataset.state, 'ready');
+});
+test('transcription animates in the canvas and cancellation removes loading feedback', async (t) => {
+  const pending = deferred();
+  const f = await fixture(t, () => pending.promise);
+  const event = new f.w.Event('drop', {bubbles:true, cancelable:true});
+  Object.defineProperty(event, 'dataTransfer', {value:{files:[new f.w.File(['audio'], 'speech.wav')], types:['Files']}});
+  f.$('audio-drop-zone').dispatchEvent(event);
+  assert.equal(f.$('transcript-feedback').hidden, false);
+  assert.equal(f.$('transcript-feedback').dataset.state, 'loading');
+  assert.equal(f.$('message').getAttribute('aria-busy'), 'true');
+  f.$('cancel-speech').click();
+  assert.equal(f.$('transcript-feedback').hidden, true);
+  pending.resolve(response({text:'stale transcript'}));
+  await flush();
+  assert.notEqual(f.$('message').value, 'stale transcript');
+});
+test('file dropped outside the upload box is captured even without a Files type', async (t) => {
+  let calls = 0;
+  const f = await fixture(t, async () => { calls++; return response({text:'water please'}); });
+  const audio = new f.w.File(['audio fixture'], 'speech.mp3', {type:'audio/mpeg'});
+  const over = new f.w.Event('dragover', {bubbles:true, cancelable:true});
+  f.$('message').dispatchEvent(over);
+  assert.equal(over.defaultPrevented, true);
+  const drop = new f.w.Event('drop', {bubbles:true, cancelable:true});
+  Object.defineProperty(drop, 'dataTransfer', {value:{files:[], types:[], items:[{kind:'file',getAsFile:()=>audio}]}});
+  f.$('message').dispatchEvent(drop);
+  await flush();
+  assert.equal(drop.defaultPrevented, true);
+  assert.equal(calls, 1);
+  assert.equal(f.$('speech-panel').hidden, false);
+  assert.equal(f.$('message').value, 'water please');
+});
 const deferred = () => {
   let resolve, reject;
   const promise = new Promise((a, b) => {
@@ -149,14 +201,15 @@ test("media failure during playback skips visibly and completes", async (t) => {
   assert.equal(f.$("player-state").textContent, "SEQUENCE COMPLETE");
 });
 
-test("source preview requires an explicit action and updates alphabet availability", async (t) => {
+test("source preview defaults on and can be disabled for approved-only playback", async (t) => {
   const f = await fixture(t, async () => response(sequence("hello")));
-  assert.equal(f.$("preview-mode").checked, false);
-  assert.equal(f.$("source-onboarding").hidden, false);
-  f.$("enable-preview").click();
   assert.equal(f.$("preview-mode").checked, true);
   assert.match(f.$("alphabet-status").textContent, /26\/26/);
   assert.equal(f.$("source-onboarding").hidden, true);
+  f.$("preview-mode").checked = false;
+  f.$("preview-mode").dispatchEvent(new f.w.Event("change"));
+  assert.match(f.$("alphabet-status").textContent, /0\/26/);
+  assert.equal(f.$("source-onboarding").hidden, false);
 });
 
 test("denied microphone permission leaves a usable text/upload path", async (t) => {
