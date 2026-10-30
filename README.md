@@ -7,6 +7,118 @@ and local speech transcription. It sequences dictionary assets; it does **not** 
 
 ## Start on Windows
 
+### Recipient checklist: first installation
+
+`git clone` and `git pull` download tracked source code only. They **do not install Python packages,
+sign videos, or the speech model**. Each recipient needs their own local setup.
+
+| Item | Needed by recipients? |
+| --- | --- |
+| Windows and Python | Yes. Python 3.12 is the locally tested version; project requires Python 3.11+. Enable Python in PATH during installation. |
+| Git | Needed for clone/pull; not needed to run an extracted handover ZIP. |
+| Browser | Yes. Microphone recording requires permission on localhost. |
+| Internet | Needed initially for Python dependencies, sign media and first speech-model download. |
+| GPU, API key or paid service | Not required; transcription runs on the CPU. |
+| Node.js/npm | Only for developers running JavaScript tests; not required to use the app. |
+| Separate FFmpeg installation | Not required by this setup; audio/video decoding uses the PyAV dependency. |
+
+Allow several GB of free disk space for the virtual environment, roughly 1.3 GB of playback media,
+source-restoration caches and speech weights. First setup time depends on network speed and the machine.
+The first transcription can be slow because it downloads and loads the model.
+
+In PowerShell, use a folder where you have write permission:
+
+```powershell
+git clone https://github.com/Pilli9375/Text_Speech-to-ISL-Sign-Generation.git
+cd Text_Speech-to-ISL-Sign-Generation
+python --version
+.\start.bat
+```
+
+Keep the server terminal open and visit **http://127.0.0.1:8000**.
+The launcher creates `.venv`, installs runtime requirements, downloads missing videos from the recorded
+external sources, verifies media and starts the server. You do not need to activate the virtual environment.
+If any download fails, setup stops with an error; restore connectivity and run the launcher again.
+Source access is controlled by its providers and cannot be guaranteed permanently.
+
+If receiving a handover ZIP instead, extract it completely into a writable folder and run `start.bat`
+inside the extracted SignBridge folder. Its included videos avoid downloading the media bank;
+Python dependencies and uncached speech weights still need initial internet access.
+Do not copy another person's `.venv` between computers. Model weights are not included in the ZIP.
+Older ZIPs do not automatically receive GitHub updates: use a newly built archive or a Git checkout.
+
+### Updating an existing installation
+
+Stop the running server using **Ctrl+C in its terminal** before updating. Then, inside the project folder:
+
+```powershell
+git switch main
+git pull --ff-only origin main
+.\start.bat
+```
+
+The launcher installs changed runtime requirements and restores newly registered media automatically.
+Existing matching downloads are reused. Refresh the browser with **Ctrl+F5** after restarting.
+Running `git pull` alone does not update a running Python process or an already open browser page.
+If Git reports local modifications or a divergent branch, preserve your changes and resolve them before updating;
+do not delete your work or use a forced reset merely to follow this guide.
+The launcher returns early when SignBridge is already running, so stop it first to apply updates.
+
+### Dependency files and developer setup
+
+- `requirements.txt`: runtime dependencies; installed automatically by the launcher.
+- `requirements-dev.txt`: runtime plus pytest/httpx; use for development and Python tests.
+- `requirements-lock.txt`: exact historical Windows/Python 3.12 environment snapshot; includes development tools.
+  The normal launcher uses requirements.txt and may resolve newer compatible releases.
+- `package.json` / `package-lock.json`: JavaScript test dependencies only; use `npm ci`, then `npm test`.
+- `pyproject.toml`: package metadata and equivalent runtime dependency declarations.
+
+For developer setup, after the first launch:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/setup_project.py --dev
+.\.venv\Scripts\python.exe -m pytest -q
+npm ci
+npm test
+```
+
+### First-run acceptance check
+
+1. Confirm the server starts and the Sign library shows the downloaded entries.
+2. With Source preview enabled (the default), convert `hello friend thank you` and play the sequence.
+3. Test Pause, Resume, Next and Stop. Approved-only mode has no playable clips until actual review is completed.
+4. Under Use your voice, record a short message or drop/select one supported audio file.
+5. Confirm loading feedback, inspect/edit the transcript, then explicitly convert it to signs.
+
+The recording/upload limits are 60 seconds and 20 MB. Drag files onto the webpage, not the browser's tab/address bar.
+Audio stays on the local backend and temporary uploads are removed after processing.
+After setup and an initial successful transcription, cached media/model use can work offline.
+Moving to another computer or selecting an uncached model requires setup/downloads there again.
+
+### Troubleshooting for recipients
+
+| Symptom | Action |
+| --- | --- |
+| `python` not found or Microsoft Store opens | Install Python and enable PATH; reopen PowerShell, then check `python --version`. |
+| PowerShell script policy blocks startup | Run `start.bat`; it invokes the project script with a process-scoped policy override. |
+| Missing packages / `ModuleNotFoundError` | Use start.bat or the explicit `.venv` interpreter, rather than an unrelated system Python. |
+| Media download fails | Check internet/provider availability, then rerun start.bat; consult canonical links in the source manifest. |
+| First transcription takes time or fails | Allow the model download to complete; check connectivity, then retry. Typed input remains available. |
+| Microphone denied | Allow access for localhost in your browser, or use the audio-file picker/drop area. |
+| Unsupported audio file | Use a real WAV/MP3/M4A/OGG/WebM/MP4/FLAC recording within limits; renaming an extension does not convert a file. |
+| Port 8000 in use | Stop the previous SignBridge terminal. Do not terminate unrelated applications indiscriminately. |
+| UI still looks old | Restart after updating, then Ctrl+F5. |
+
+For a manual alternate port, use `.venv/Scripts/python.exe -m uvicorn text_to_sign.app:app --host 127.0.0.1 --port 8001`
+and visit http://127.0.0.1:8001. Binding to localhost keeps this a local app; public hosting is a separate deployment task.
+
+### Handover limitations
+
+This is dictionary-based English-to-sign clip sequencing, not general grammatical ISL translation.
+All current source clips still await independent semantic/ISL review. The experimental reviewed-order registry
+is empty; leave that option off for ordinary dictionary use. User-reported microphone/playback success does not
+establish a measured speech error rate. Media retain their individual usage/attribution conditions listed below.
+
 From this folder, double-click `start.bat` or run:
 
 ```powershell

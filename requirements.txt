@@ -1,6 +1,9 @@
+# Runtime dependencies. start.bat installs these into a local .venv.
+# Python 3.12 is the locally tested interpreter; see README.md for first-run media/model downloads.
 fastapi>=0.115,<1
 uvicorn>=0.30,<1
 python-multipart>=0.0.18,<1
 faster-whisper>=1.1,<2
+# Keep below 17 for the tested faster-whisper/PyAV compatibility.
 av>=13,<17
 pillow>=11,<13
