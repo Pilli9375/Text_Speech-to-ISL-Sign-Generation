@@ -359,7 +359,9 @@ async function convert() {
       const p = document.createElement("p");
       p.className = "sequence-placeholder";
       p.textContent =
-        "No available signs matched. Check the library or enable source preview for pending clips.";
+        result.mode === 'reviewed_sentence'
+          ? "No reviewed sentence order is available. Turn off reviewed sentence orders to explore dictionary matches."
+          : "No available signs matched. Check the library or enable source preview for pending clips.";
       $("sequence-list").append(p);
       $("time-label").textContent = "No available signs";
       setPlayerState("NO MATCHES");

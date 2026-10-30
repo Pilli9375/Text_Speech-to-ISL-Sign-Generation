@@ -4,6 +4,7 @@ This is deliberately not an automatic English-to-ISL grammar model.
 """
 import json
 from datetime import date
+from time import perf_counter
 
 from .engine import normalize
 
@@ -21,6 +22,7 @@ def validate_rule(rule):
 
 
 def convert_sentence(bank, text, preview=False):
+    started = perf_counter()
     normalized = normalize(text)
     if not normalized or len(normalized.split()) > 200:
         raise ValueError('Please enter 1–200 English words')
@@ -33,17 +35,20 @@ def convert_sentence(bank, text, preview=False):
               'input_words': len(normalized.split()), 'matched_words': 0,
               'coverage': 0, 'preview': preview, 'elapsed_ms': 0,
               'mode': 'reviewed_sentence'}
+    def finish():
+        result['elapsed_ms'] = round((perf_counter() - started) * 1000, 2)
+        return result
     if not matches:
         result['warnings'] = [{'code': 'UNSUPPORTED_CONSTRUCTION', 'term': normalized,
                               'message': 'No reviewed sentence order exists for this construction. Use dictionary mode for vocabulary practice.'}]
-        return result
+        return finish()
     rule = matches[0]
     validate_rule(rule)
     index = {e['id']: e for e in bank.entries()}
     if any(i not in index or not bank.available(index[i], preview) for i in rule['sign_ids']):
         result['warnings'] = [{'code': 'ASSET_UNAVAILABLE', 'term': normalized,
                               'message': 'The reviewed order contains unavailable or unapproved assets; no partial sentence was emitted.'}]
-        return result
+        return finish()
     result['sequence'] = [{'id': i, 'text': index[i]['text'], 'type': index[i]['type'],
                            'input': normalized, 'url': f'/api/media/{i}',
                            'ready': bank.available(index[i]),
@@ -51,4 +56,4 @@ def convert_sentence(bank, text, preview=False):
                            'attribution': index[i].get('attribution', '')} for i in rule['sign_ids']]
     result.update(matched_words=result['input_words'], coverage=100, rule_id=rule['id'],
                   reviewed_by=rule['reviewed_by'])
-    return result
+    return finish()

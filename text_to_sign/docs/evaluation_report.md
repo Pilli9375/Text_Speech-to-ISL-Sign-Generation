@@ -86,7 +86,7 @@ empty/unreviewed corpora fail rather than become passing scores. See reviewer_an
 
 Branch: feature/text-to-sign. A local main baseline exists for a reviewable PR. Code and lightweight metadata
 are tracked; media, model weights, raw originals, recordings, environments and artifacts are excluded.
-Report generation observed local revision b3b3857; the final delivery revision is in Git history.
+Report generation observed local revision a6fb913; the final delivery revision is in Git history.
 Current remote-delivery state: Blocked: GitHub HTTPS credentials unavailable; baseline push failed.
 No legacy checksum or recognition-endpoint preservation result is invented for this initially empty repository.
 

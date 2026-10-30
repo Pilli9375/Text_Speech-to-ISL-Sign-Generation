@@ -17,7 +17,7 @@ software implementation from external evidence. Full PDF compliance is NOT claim
 | Manual 11: 24 browser cases | Recorded with limits | test-cases.md; PDF lists only T01–T12, project adds T13–T24; simulations explicitly labelled |
 | Manual 12: coverage, accuracy, playback reliability | Partial | Fixed-target completion_metrics.json, retrieval report and browser telemetry; verified references pending |
 | Manual 13–15: HTTP startup and handover | Implemented / release validation separate | Windows launcher, local FastAPI and A–G evaluation report |
-| Manual 16: Git and model preservation | Partial / legacy N/A | Local commits planned/delivered status in delivery_status.json; no legacy files supplied to checksum |
+| Manual 16: Git and model preservation | Partial / legacy N/A | Local baseline and implementation committed; remote status in delivery_status.json; no legacy files supplied to checksum |
 | Manual final A–G report | Implemented | evaluation_report.md; historical reports labelled separately |
 | Roadmap workspace/environment | Implemented | Dependencies, feature branch, launcher and buildless UI |
 | Roadmap metadata CSV | Implemented | data/metadata/sign_dictionary.csv generated from signs.json, pending/verified values |

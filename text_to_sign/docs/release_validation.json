@@ -1,0 +1,31 @@
+{
+  "archive": "SignBridge-1.2.zip",
+  "sha256": "360eb72f93c28f1da5d96a79548b0c915558a52e383f7403ae449eb5107e9d41",
+  "extracted_folder": "C:\\Pilli\\Text_Speech-to-ISL Sign Generation\\artifacts\\release-check-n1zlva2b\\SignBridge",
+  "health": {
+    "status": "ok",
+    "application": "SignBridge",
+    "version": "1.2.0",
+    "speech": {
+      "model": "base.en",
+      "loaded": false,
+      "busy": false,
+      "max_seconds": 60,
+      "device": "cpu"
+    }
+  },
+  "entries": 518,
+  "previewable": 518,
+  "ready": 0,
+  "http_conversion": "passed",
+  "range_media": "passed",
+  "diagnostics_disabled": true,
+  "cached_asr": {
+    "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+    "language": "en",
+    "audio_seconds": 5.86,
+    "elapsed_ms": 3651,
+    "model": "base.en"
+  },
+  "limitation": "Fresh folder with shared installed Python dependencies; not a fresh OS or fresh dependency installation."
+}

@@ -203,3 +203,5 @@ saved alongside the archive and in the local docs. No recordings or model weight
 
 The current A–G handover and remaining PDF requirements are in `text_to_sign/docs/evaluation_report.md`
 and `text_to_sign/docs/pdf_requirements_checklist.md`. GitHub authentication is needed for push/PR/remote CI/merge.
+
+After GitHub authentication, run `python scripts/deliver_github.py --merge` from a clean committed feature branch to push, open the prepared PR, wait for both actual CI jobs and request a normal merge. The script does not bypass repository rules.

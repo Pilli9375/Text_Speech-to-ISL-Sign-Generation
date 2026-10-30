@@ -37,6 +37,18 @@ def validate(archive, speech_sample=None):
         listener.bind(('127.0.0.1', 0)); port = listener.getsockname()[1]
     env = {**os.environ, 'HF_HUB_OFFLINE': '1', 'TRANSFORMERS_OFFLINE': '1',
            'PYTHONDONTWRITEBYTECODE': '1', 'SIGNBRIDGE_DIAGNOSTICS': '0', 'PYTHONPATH': str(checkout)}
+    # Exercise the archive's restoration path with HTTP fetches disabled in the
+    # child interpreter. Included playback media must be sufficient on their own.
+    for script, arguments in [('scripts/import_alphabet.py', []),
+                              ('scripts/source_assets.py', ['--download']),
+                              ('scripts/audit_assets.py', ['--changed-only'])]:
+        code = ("import runpy,sys,urllib.request; "
+                "urllib.request.urlopen=lambda *a,**k: (_ for _ in ()).throw(RuntimeError('Network disabled for release restoration check')); "
+                "sys.argv=" + repr([script, *arguments]) + '; runpy.run_path(' + repr(script) + ",run_name='__main__')")
+        restored = subprocess.run([sys.executable, '-c', code], cwd=checkout, env=env,
+                                  capture_output=True, text=True, timeout=180)
+        (folder / (Path(script).stem + '.log')).write_text(restored.stdout + restored.stderr, encoding='utf-8')
+        if restored.returncode: raise RuntimeError('Extracted offline media restoration failed: ' + script)
     log = (folder / 'server.log').open('w')
     options = dict(cwd=checkout, env=env, stdout=log, stderr=subprocess.STDOUT)
     if os.name == 'nt': options['creationflags'] = subprocess.CREATE_NO_WINDOW
@@ -72,6 +84,7 @@ def validate(archive, speech_sample=None):
         report = dict(archive=archive.name, sha256=digest, extracted_folder=str(checkout),
                       health=health, entries=inventory['total'], previewable=inventory['previewable'],
                       ready=inventory['ready'], http_conversion='passed', range_media='passed',
+                      included_media_restoration_with_http_disabled='passed',
                       diagnostics_disabled=True, cached_asr=None,
                       limitation='Fresh folder with shared installed Python dependencies; not a fresh OS or fresh dependency installation.')
         if inventory['total'] != inventory['previewable']:
@@ -87,7 +100,12 @@ def validate(archive, speech_sample=None):
         archive.with_suffix('.validation.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
         print(json.dumps(report, indent=2))
     finally:
-        process.terminate()
+        if os.name == 'nt' and process.poll() is None:
+            # Windows venv redirectors may own a Python child; terminate only
+            # this validator's exact process tree, not other local servers.
+            subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'], capture_output=True)
+        elif process.poll() is None:
+            process.terminate()
         try: process.wait(timeout=10)
         except subprocess.TimeoutExpired: process.kill(); process.wait()
         log.close()
