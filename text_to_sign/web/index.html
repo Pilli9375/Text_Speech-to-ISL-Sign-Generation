@@ -10,8 +10,8 @@
     />
     <title>SignBridge · Words into connection</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/styles.css" />
-    <script src="/app.js" type="module"></script>
+    <link rel="stylesheet" href="/styles.css?v=transcript-feedback" />
+    <script src="/app.js?v=transcript-feedback" type="module"></script>
   </head>
   <body>
     <svg
@@ -173,7 +173,7 @@
                 aria-labelledby="speech-tab"
                 hidden
               >
-                <div class="record-area">
+                <div class="record-area" id="audio-drop-zone" role="group" aria-label="Audio recording and file drop area">
                   <button
                     id="record-button"
                     class="record-button"
@@ -190,6 +190,7 @@
                     accept=".wav,.mp3,.m4a,.ogg,.webm,.mp4,.flac"
                     hidden
                   />
+                  <p class="audio-drop-hint">Or drag and drop one audio file here.<br />WAV, MP3, M4A, OGG, WebM, MP4 or FLAC · up to 20 MB / 60 seconds</p>
                   <button id="cancel-speech" class="text-button" hidden>
                     Cancel transcription
                   </button>
@@ -203,7 +204,12 @@
                 <div class="textarea-wrap">
                   <label class="sr-only" for="message"
                     >English message or edited speech transcript</label
-                  ><textarea
+                  >
+                  <div id="transcript-feedback" class="transcript-feedback" role="status" aria-live="polite" hidden>
+                    <span class="transcript-wave" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span id="transcript-feedback-text"></span>
+                  </div>
+                  <textarea
                     id="message"
                     maxlength="4000"
                     placeholder="What would you like to say?&#10;&#10;Try “hello friend” or “thank you”..."
@@ -374,7 +380,7 @@
               ><span id="review-summary">Loading sign library…</span>
             </div>
             <label
-              ><input id="preview-mode" type="checkbox" />Preview source clips
+              ><input id="preview-mode" type="checkbox" checked />Preview source clips
               awaiting ISL review</label
             >
           </div>

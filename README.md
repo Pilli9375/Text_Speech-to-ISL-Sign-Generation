@@ -34,8 +34,8 @@ PyAV is constrained below 17 because the observed newest release removed an API 
 
 ## Use it
 
-1. The default **approved mode** plays only READY assets. The source collection awaits independent ISL review.
-2. Choose **Use source preview** in the onboarding banner to explore the actual downloaded clips.
+1. **Source preview is enabled by default**, as requested, so the downloaded collection works immediately. Independent ISL review remains pending.
+2. Uncheck **Preview source clips** to use approved-only mode, which plays only READY assets.
 3. Enter `hello friend`, `thank you`, or `water please`, then choose **Convert to signs**.
 4. Review the queue and unsupported-term warnings. Use Play, Pause/Resume, Stop, Next and speed controls.
 5. Under **Use your voice**, record up to 60 seconds or upload WAV/MP3/M4A/OGG/WebM/MP4/FLAC (under 20 MB).

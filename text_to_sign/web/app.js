@@ -238,6 +238,7 @@ function reset() {
 }
 $("clear-button").addEventListener("click", () => {
   cancelSpeech();
+  transcriptFeedback('');
   reset();
   $("message").value = "";
   wordCount();
@@ -731,6 +732,7 @@ function resetRecordingUI() {
   $("record-hint").textContent = "Record up to 60 seconds in English.";
 }
 function cancelSpeech() {
+  if ($('transcript-feedback').dataset.state === 'loading') transcriptFeedback('');
   clearTimeout(state.speechTimer);
   $("cancel-speech").hidden = true;
   state.speechGeneration++;
@@ -749,6 +751,7 @@ $("cancel-speech").addEventListener("click", () => {
 });
 async function transcribe(file, generation) {
   if (generation !== state.speechGeneration) return;
+  transcriptFeedback('loading', 'Turning your audio into text… Your transcript will appear here.');
   $("record-heading").textContent = "Turning speech into text…";
   $("record-hint").textContent =
     "First use may take longer while the model downloads.";
@@ -774,6 +777,7 @@ async function transcribe(file, generation) {
     });
     if (generation !== state.speechGeneration) return;
     $("message").value = result.text;
+    transcriptFeedback('ready', 'Transcript ready — review and edit your words below.');
     wordCount();
     $("message").focus();
     $("record-heading").textContent = "Your transcript is ready";
@@ -783,6 +787,8 @@ async function transcribe(file, generation) {
   } catch (error) {
     if (generation === state.speechGeneration && error.name !== "AbortError") {
       resetRecordingUI();
+      const unsupported = /could not be decoded|contains no audio|audio format|Choose WAV/i.test(error.message);
+      transcriptFeedback('error', unsupported ? 'Unsupported audio file. Choose a valid audio recording.' : error.message);
       toast(error.message);
     }
   } finally {
@@ -882,15 +888,74 @@ $("record-button").addEventListener("click", async () => {
   }
 });
 $("upload-button").addEventListener("click", () => $("audio-file").click());
-$("audio-file").addEventListener("change", () => {
-  const file = $("audio-file").files[0];
+function uploadAudio(file) {
   if (!file) return;
+  if ($("upload-button").disabled) {
+    toast('Stop recording or cancel transcription before uploading another file.');
+    return;
+  }
+  if (!/\.(wav|mp3|m4a|ogg|webm|mp4|flac)$/i.test(file.name)) {
+    transcriptFeedback('error', 'Unsupported audio file. Use WAV, MP3, M4A, OGG, WebM, MP4 or FLAC.');
+    toast('Unsupported audio file.');
+    return;
+  }
+  if (!file.size || file.size > 20 * 1024 * 1024) {
+    transcriptFeedback('error', 'Choose a nonempty audio file smaller than 20 MB.');
+    toast('Choose a nonempty audio file smaller than 20 MB.');
+    return;
+  }
   cancelSpeech();
   pause();
-  if (file.size > 20 * 1024 * 1024) toast("Choose audio smaller than 20 MB.");
-  else transcribe(file, state.speechGeneration);
+  transcribe(file, state.speechGeneration);
+}
+function transcriptFeedback(status, text = '') {
+  const feedback = $('transcript-feedback');
+  feedback.hidden = !status;
+  feedback.dataset.state = status;
+  $('transcript-feedback-text').textContent = text;
+  $('message').setAttribute('aria-busy', String(status === 'loading'));
+  $('message').classList.toggle('transcript-arrived', status === 'ready');
+}
+$("audio-file").addEventListener("change", () => {
+  uploadAudio($("audio-file").files[0]);
   $("audio-file").value = "";
 });
+const dropZone = $("audio-drop-zone");
+let dragDepth = 0;
+dropZone.addEventListener('dragenter', (event) => {
+  event.preventDefault(); dragDepth++;
+  dropZone.classList.add('drag-active');
+});
+dropZone.addEventListener('dragover', (event) => {
+  event.preventDefault();
+  if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy';
+});
+dropZone.addEventListener('dragleave', (event) => {
+  event.preventDefault();
+  if (--dragDepth <= 0) { dragDepth = 0; dropZone.classList.remove('drag-active'); }
+});
+// Capture at the window before nested controls/browser defaults handle a file.
+// Accept a file anywhere inside the page, including outside the recording box.
+window.addEventListener('dragover', (event) => {
+  event.preventDefault();
+  if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy';
+}, {capture:true});
+window.addEventListener('drop', (event) => {
+  const transfer = event.dataTransfer;
+  let files = Array.from(transfer?.files || []);
+  const items = Array.from(transfer?.items || []).filter(item => item.kind === 'file');
+  if (!files.length) files = items.map(item => item.getAsFile()).filter(Boolean);
+  const fileDrop = files.length || items.length || Array.from(transfer?.types || []).includes('Files');
+  if (!fileDrop) return;
+  event.preventDefault();
+  event.stopPropagation();
+  dragDepth = 0; dropZone.classList.remove('drag-active');
+  if (files.length !== 1) { toast('Drop one audio file from your computer at a time.'); return; }
+  if ($('upload-button').disabled) { uploadAudio(files[0]); return; }
+  setView('workspace');
+  inputTab(true);
+  uploadAudio(files[0]);
+}, {capture:true});
 window.addEventListener("beforeunload", () => {
   cancelSpeech();
   invalidate();

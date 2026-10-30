@@ -1,12 +1,10 @@
 {
-  "local_baseline_commit": "b3b3857",
   "branch": "feature/text-to-sign",
-  "base_branch": "main",
-  "remote_status": "Blocked: GitHub HTTPS credentials unavailable; baseline push failed",
-  "push": false,
-  "pull_request": false,
-  "remote_ci": false,
-  "merged": false,
-  "required_user_action": "Authenticate Git for github.com with repository write access, then use scripts/deliver_github.py.",
-  "local_implementation_commit": "a6fb913"
+  "head_sha": "452b5bbadfe6caf8f5562f84e6c7dc328eb95b19",
+  "push": true,
+  "pull_request": "https://github.com/Pilli9375/Text_Speech-to-ISL-Sign-Generation/pull/1",
+  "remote_ci": true,
+  "merged": true,
+  "remote_status": "Merged after passing Windows/Linux CI",
+  "merge_sha": "744ddca9185abaa30444fd404816b4a9fc6f6ea3"
 }
