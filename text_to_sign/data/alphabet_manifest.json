@@ -1,0 +1,192 @@
+{
+  "source_url": "https://data.mendeley.com/datasets/rc349j45m5/1",
+  "archive_url": "https://data.mendeley.com/public-files/datasets/rc349j45m5/files/5bba025c-6e16-4287-b6eb-4db066b17c31/file_downloaded",
+  "archive_size": 1406375448,
+  "license": "CC BY 4.0",
+  "attribution": "Elakkiya R and Rajalakshmi E (2021), ISLAN, Mendeley Data V1, doi:10.17632/rc349j45m5.1",
+  "selection": "Signer_1 Double_Handed_Alphabets; original J motion retained, other letters static as released",
+  "files": [
+    {
+      "letter": "A",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/A1.jpg",
+      "sha256": "56722ae0ddcecdbcf312af7921e4c16741d3e26053c0753322ef708455880cfe",
+      "bytes": 4548021,
+      "crc32": "e238bfe4"
+    },
+    {
+      "letter": "B",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/B1.jpg",
+      "sha256": "ac46b84226fad89467d8997fd0beae22b99fb6c5710f61c1deb6342e4f6a9377",
+      "bytes": 4802406,
+      "crc32": "ada9e955"
+    },
+    {
+      "letter": "C",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/C1.jpg",
+      "sha256": "5e7cb69d75c202d55bc3f1eb015af7123fd40128eab9233585514cc5d406dee4",
+      "bytes": 5090317,
+      "crc32": "25d59343"
+    },
+    {
+      "letter": "D",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/D1.jpg",
+      "sha256": "434a484707be7c3e489c3dc59e85b594015cb216b7f28e0a560f495b998ecc79",
+      "bytes": 4819180,
+      "crc32": "2a11c427"
+    },
+    {
+      "letter": "E",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/E1.jpg",
+      "sha256": "ff67efa2f66cd1f26205204f48131e2083f83b3e62fb78f3e3fb261fb5364333",
+      "bytes": 4559278,
+      "crc32": "5f5f53ed"
+    },
+    {
+      "letter": "F",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/F1.jpg",
+      "sha256": "84acf37e257890d97c51271519d3cbf376465efb4058e1102648e423fd1fdcd2",
+      "bytes": 4839751,
+      "crc32": "ce67a438"
+    },
+    {
+      "letter": "G",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/G1.jpg",
+      "sha256": "be6d5305415c48ca59331f6d72c5756f6e6e9be136d52f21c15f25913d236fb5",
+      "bytes": 4897342,
+      "crc32": "882a17f0"
+    },
+    {
+      "letter": "H",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/H1.jpg",
+      "sha256": "1a4aa78beeb8c4862a12650308b25f062e04d36337821c79a9b5ea8492654ebe",
+      "bytes": 4703806,
+      "crc32": "fe21f506"
+    },
+    {
+      "letter": "I",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/I1.jpg",
+      "sha256": "103a21a4c6ac7c253a5cceeb7ba186d05f5312399975587a4b0ddaadfaa308d2",
+      "bytes": 4481640,
+      "crc32": "f00a02f2"
+    },
+    {
+      "letter": "J",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/J1.mp4",
+      "sha256": "b5b552e887f511d0498d7c9d163cb2bbfc173f8600ec7ce8cbcfc87f8a187b40",
+      "bytes": 5525347,
+      "crc32": "f2143255"
+    },
+    {
+      "letter": "K",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/K1.jpg",
+      "sha256": "af6161bdf65bf8b8b204f59654fea2ff0ec77fa149275f4c37bd209e85081d07",
+      "bytes": 4366382,
+      "crc32": "8a03bd67"
+    },
+    {
+      "letter": "L",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/L1.jpg",
+      "sha256": "1efca72db3f68ac3c9ef256c20052d7ae696c516357cf6c8f70fb0338890d2b3",
+      "bytes": 4196167,
+      "crc32": "b999a01c"
+    },
+    {
+      "letter": "M",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/M1.jpg",
+      "sha256": "197caa2e82126317854988d592c411b0f22eb21420f01babc462288cffc8af32",
+      "bytes": 4380121,
+      "crc32": "25656d93"
+    },
+    {
+      "letter": "N",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/N1.jpg",
+      "sha256": "e525ff0ec424a6ecfa5b6652bd34a7b0fa57654387d41beb5e3b4d96a4aff4af",
+      "bytes": 4201436,
+      "crc32": "e3d56ed0"
+    },
+    {
+      "letter": "O",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/O1.jpg",
+      "sha256": "68b5e8d8cf190e84480b53807d51c756bef4397b6311f8ba2eaefba92e562c48",
+      "bytes": 4766947,
+      "crc32": "5ca6233f"
+    },
+    {
+      "letter": "P",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/P1.jpg",
+      "sha256": "78fc138f1a0a385e96eac1cd86a8fba3a82062ef4f9cf0c069dc2ed80d3ac997",
+      "bytes": 4736128,
+      "crc32": "46eff404"
+    },
+    {
+      "letter": "Q",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/Q1.jpg",
+      "sha256": "0490434d39144516040a65271ffbc6658380ab514729b0dce112f6b3760c651f",
+      "bytes": 4425992,
+      "crc32": "6e21260d"
+    },
+    {
+      "letter": "R",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/R1.jpg",
+      "sha256": "3b45849231ada1db042ff3a726161283de607cef4b6eb938958fcb045dc35cec",
+      "bytes": 4638721,
+      "crc32": "7cd11c82"
+    },
+    {
+      "letter": "S",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/S1.jpg",
+      "sha256": "734a2c84dcd619aa0338a5329efc61c6ed668258fade0d07717b909bd5c14bf1",
+      "bytes": 5415886,
+      "crc32": "6dacc834"
+    },
+    {
+      "letter": "T",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/T1.jpg",
+      "sha256": "a977f0815c1693c61ddc73ee07160d3e82e25df592f97177f1b4d9bc1199e246",
+      "bytes": 5526892,
+      "crc32": "70750d9b"
+    },
+    {
+      "letter": "U",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/U1.jpg",
+      "sha256": "cf4f68e4c90b0099c1777990df2230f333df3296e024453358d4112732f85be9",
+      "bytes": 6397183,
+      "crc32": "981ad3e8"
+    },
+    {
+      "letter": "V",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/V1.jpg",
+      "sha256": "9b723b417d97de1475183f25482bfa61cefcf80929b22d66908d11ce84658411",
+      "bytes": 4895160,
+      "crc32": "f6220c52"
+    },
+    {
+      "letter": "W",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/W1.jpg",
+      "sha256": "0534376cf314431061df2b7bb1a0547a2192fadb9ce403e0b0ab5f54e4806169",
+      "bytes": 5041202,
+      "crc32": "d3cf1f53"
+    },
+    {
+      "letter": "X",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/X1.jpg",
+      "sha256": "ae949c0c41747080d929f78a6a9b9cb08b0b2d100b8105907839eda9f1a5d4cb",
+      "bytes": 5067022,
+      "crc32": "e35aeda3"
+    },
+    {
+      "letter": "Y",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/Y1.jpg",
+      "sha256": "b4c88c978a3a708cfae11d2cc1b840dfeadbd205cc732425c222b50a5a607765",
+      "bytes": 5091167,
+      "crc32": "88506fc1"
+    },
+    {
+      "letter": "Z",
+      "source_member": "Multi-Signers/Signer_1/Double_Handed_Alphabets/Z1.jpg",
+      "sha256": "bd89c137a692f359c7300433a01842658ab1fedc9fca265c2038d3be0d045e11",
+      "bytes": 5176760,
+      "crc32": "dad7c78c"
+    }
+  ]
+}

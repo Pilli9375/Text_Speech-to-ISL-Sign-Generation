@@ -1,0 +1,24 @@
+{
+  "sample_id": "LibriSpeech dev-clean 1272-128104-0000",
+  "sample_count": 1,
+  "source_url": "https://raw.githubusercontent.com/QwenLM/Qwen-Audio/main/assets/audio/1272-128104-0000.flac",
+  "dataset_url": "https://www.openslr.org/12",
+  "reference_source": "https://huggingface.co/datasets/hf-internal-testing/librispeech_asr_demo/viewer/",
+  "attribution": "Vassil Panayotov, Guoguo Chen, Daniel Povey and Sanjeev Khudanpur, LibriSpeech (2015)",
+  "license": "CC BY 4.0",
+  "sha256": "4e25e22555cd16e90edb0a3b49fdcf1fe652b2a1250ab643634db33895c75b41",
+  "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL",
+  "observed": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+  "reference_words": 17,
+  "word_edits": 0,
+  "wer_percent": 0.0,
+  "normalization": "Case/punctuation ignored; Mr. normalized to mister; no other lexical substitutions.",
+  "transcription": {
+    "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+    "language": "en",
+    "audio_seconds": 5.86,
+    "elapsed_ms": 3632,
+    "model": "base.en"
+  },
+  "limitation": "One clean audiobook speaker/utterance. Not representative of conversational or Indian-accented speech, microphone/noise conditions, or deployed accuracy."
+}

@@ -1,0 +1,28 @@
+{
+  "checks": [
+    {
+      "check": "python",
+      "passed": true,
+      "count": 69,
+      "log": "artifacts\\verify-python.log"
+    },
+    {
+      "check": "javascript",
+      "passed": true,
+      "count": 16,
+      "log": "artifacts\\verify-javascript.log"
+    },
+    {
+      "check": "syntax",
+      "passed": true,
+      "count": null,
+      "log": "artifacts\\verify-syntax.log"
+    },
+    {
+      "check": "diff",
+      "passed": true,
+      "count": null,
+      "log": "artifacts\\verify-diff.log"
+    }
+  ]
+}

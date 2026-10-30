@@ -1,0 +1,11 @@
+{
+  "sample_kind": "Windows System.Speech synthetic voice; not a representative human test set",
+  "expected": "Hello friend. Thank you. Please help me. I need water.",
+  "result": {
+    "text": "Hello friend. Thank you. Please help me. I need water.",
+    "language": "en",
+    "audio_seconds": 6.45,
+    "elapsed_ms": 609,
+    "model": "base.en"
+  }
+}
