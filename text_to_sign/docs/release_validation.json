@@ -1,7 +1,7 @@
 {
   "archive": "SignBridge-1.2.zip",
-  "sha256": "360eb72f93c28f1da5d96a79548b0c915558a52e383f7403ae449eb5107e9d41",
-  "extracted_folder": "C:\\Pilli\\Text_Speech-to-ISL Sign Generation\\artifacts\\release-check-n1zlva2b\\SignBridge",
+  "sha256": "ca15721ff94348b7932e4e78e166ceffa5cfd8b5aaa8751b7fe8d98c5a2b2b85",
+  "extracted_folder": "C:\\Pilli\\Text_Speech-to-ISL Sign Generation\\artifacts\\release-check-whxcnesv\\SignBridge",
   "health": {
     "status": "ok",
     "application": "SignBridge",
@@ -19,13 +19,25 @@
   "ready": 0,
   "http_conversion": "passed",
   "range_media": "passed",
+  "included_media_restoration_with_http_disabled": "passed",
   "diagnostics_disabled": true,
   "cached_asr": {
     "text": "Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
     "language": "en",
     "audio_seconds": 5.86,
-    "elapsed_ms": 3651,
+    "elapsed_ms": 1903,
     "model": "base.en"
   },
-  "limitation": "Fresh folder with shared installed Python dependencies; not a fresh OS or fresh dependency installation."
+  "limitation": "Fresh folder with shared installed Python dependencies; not a fresh OS or fresh dependency installation.",
+  "source_revision": "361b3f2a1279b7ef19a13867400be711afd64233",
+  "additional_browser_checks": {
+    "mobile_viewport": [
+      390,
+      844
+    ],
+    "document_width": 375,
+    "horizontal_overflow": false,
+    "unsupported_sentence_mode": "Visible reviewer-order warning and empty queue",
+    "browser": "In-app Chromium; not a multi-browser matrix"
+  }
 }
