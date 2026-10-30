@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173b36" />
+    <meta
+      name="description"
+      content="Turn English text and speech into a sequence of Indian Sign Language dictionary videos."
+    />
+    <title>SignBridge · Words into connection</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" type="module"></script>
+  </head>
+  <body>
+    <svg
+      class="svg-sprite"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <symbol id="i-grid" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" rx="2" />
+          <rect x="14" y="3" width="7" height="7" rx="2" />
+          <rect x="3" y="14" width="7" height="7" rx="2" />
+          <rect x="14" y="14" width="7" height="7" rx="2" />
+        </symbol>
+        <symbol id="i-book" viewBox="0 0 24 24">
+          <path
+            d="M12 5c-3-2-6-2-10-1v15c4-1 7-1 10 1 3-2 6-2 10-1V4c-4-1-7-1-10 1v15"
+          />
+        </symbol>
+        <symbol id="i-mic" viewBox="0 0 24 24">
+          <rect x="8" y="2" width="8" height="13" rx="4" />
+          <path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8" />
+        </symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+          <path d="M4 12h16m-6-6 6 6-6 6" />
+        </symbol>
+        <symbol id="i-upload" viewBox="0 0 24 24">
+          <path d="M12 16V3m-5 5 5-5 5 5M4 16v5h16v-5" />
+        </symbol>
+        <symbol id="i-info" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v6m0-10v1" />
+        </symbol>
+        <symbol id="i-play" viewBox="0 0 24 24">
+          <path d="m8 4 13 8-13 8Z" />
+        </symbol>
+        <symbol id="i-skip" viewBox="0 0 24 24">
+          <path d="m4 5 12 7-12 7Z M20 5v14" />
+        </symbol>
+        <symbol id="i-stop" viewBox="0 0 24 24">
+          <rect x="5" y="5" width="14" height="14" rx="2" />
+        </symbol>
+        <symbol id="i-pause" viewBox="0 0 24 24">
+          <path d="M8 4v16M16 4v16" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+          <path d="m5 12 4 4L19 6" />
+        </symbol>
+        <symbol id="i-hand" viewBox="0 0 24 24">
+          <path
+            d="M8 13V7a1.5 1.5 0 0 1 3 0v5-8a1.5 1.5 0 0 1 3 0v8-6a1.5 1.5 0 0 1 3 0v7-3a1.5 1.5 0 0 1 3 0v6c0 4-3 6-7 6-3 0-5-1-7-4l-3-5a1.6 1.6 0 0 1 2.5-2L8 13Z"
+          />
+        </symbol>
+      </defs>
+    </svg>
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="SignBridge home"
+        ><span class="brand-icon"
+          ><svg><use href="#i-hand" /></svg></span
+        >SignBridge<span class="brand-dot">.</span></a
+      >
+      <p class="sidebar-label">YOUR WORKSPACE</p>
+      <nav aria-label="Main navigation">
+        <button class="nav-item active" data-view="workspace">
+          <svg><use href="#i-grid" /></svg>Converter<span class="nav-arrow"
+            >↗</span
+          >
+        </button>
+        <button class="nav-item" data-view="library">
+          <svg><use href="#i-book" /></svg>Sign library<span
+            id="nav-count"
+            class="nav-count"
+            >0</span
+          >
+        </button>
+        <button class="nav-item" data-view="about">
+          <svg><use href="#i-info" /></svg>About the project
+        </button>
+      </nav>
+      <div class="sidebar-note">
+        <span class="note-spark">✳</span>
+        <h3>A little more<br />understanding.</h3>
+        <p>
+          Making everyday words<br />more accessible, one sign<br />at a time.
+        </p>
+        <div class="note-line"></div>
+        <span>BUILT FOR CONNECTION</span>
+      </div>
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>Local workspace
+        <span class="version">v1.2</span>
+      </div>
+    </aside>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          Workspace <span>/</span> <strong id="breadcrumb">Converter</strong>
+        </div>
+        <span class="language-tag"
+          ><span class="india-dot"></span>Indian Sign Language
+          <span class="pill-small">ISL</span></span
+        >
+      </header>
+      <main>
+        <section id="workspace-view" class="view">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">WORDS INTO CONNECTION</p>
+              <h1>Let your words take shape<span>.</span></h1>
+              <p class="page-subtitle">
+                Type it. Say it. Explore it in Indian Sign Language.
+              </p>
+            </div>
+            <span class="prototype-badge"
+              ><span class="status-dot"></span>Research prototype</span
+            >
+          </div>
+          <div id="source-onboarding" class="source-onboarding" hidden>
+            <p>
+              <strong>Your source library is ready to explore.</strong>
+              Independent ISL review is pending. Use source preview to try the
+              available clips.
+            </p>
+            <button id="enable-preview" class="text-button">
+              Use source preview →
+            </button>
+          </div>
+          <div class="workspace-grid">
+            <section class="card input-card" aria-labelledby="input-heading">
+              <div class="card-heading">
+                <div class="heading-title">
+                  <span class="step-number">01</span>
+                  <h2 id="input-heading">Your message</h2>
+                </div>
+                <span class="micro-label">ENGLISH INPUT</span>
+              </div>
+              <div class="input-tabs" role="tablist" aria-label="Input method">
+                <button
+                  id="text-tab"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="text-panel"
+                  class="input-tab active"
+                >
+                  <span class="text-symbol">Tt</span>Type text</button
+                ><button
+                  id="speech-tab"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="speech-panel"
+                  class="input-tab"
+                >
+                  <svg><use href="#i-mic" /></svg>Use your voice
+                </button>
+              </div>
+              <div
+                id="speech-panel"
+                role="tabpanel"
+                aria-labelledby="speech-tab"
+                hidden
+              >
+                <div class="record-area">
+                  <button
+                    id="record-button"
+                    class="record-button"
+                    aria-label="Start recording"
+                  >
+                    <svg><use href="#i-mic" /></svg></button
+                  ><strong id="record-heading">Start with your voice</strong>
+                  <p id="record-hint">Record up to 60 seconds in English.</p>
+                  <button id="upload-button" class="text-button">
+                    <svg><use href="#i-upload" /></svg>Or upload an audio file</button
+                  ><input
+                    id="audio-file"
+                    type="file"
+                    accept=".wav,.mp3,.m4a,.ogg,.webm,.mp4,.flac"
+                    hidden
+                  />
+                  <button id="cancel-speech" class="text-button" hidden>
+                    Cancel transcription
+                  </button>
+                </div>
+                <p class="speech-note">
+                  Transcribed locally. Review and edit your transcript before
+                  converting. First use downloads the speech model.
+                </p>
+              </div>
+              <div id="text-panel" role="tabpanel" aria-labelledby="text-tab">
+                <div class="textarea-wrap">
+                  <label class="sr-only" for="message"
+                    >English message or edited speech transcript</label
+                  ><textarea
+                    id="message"
+                    maxlength="4000"
+                    placeholder="What would you like to say?&#10;&#10;Try “hello friend” or “thank you”..."
+                  ></textarea>
+                  <div class="textarea-footer">
+                    <span id="word-count">0 words</span
+                    ><button id="clear-button" class="text-button">
+                      Clear text
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="suggestions">
+                <span>TRY A MESSAGE</span>
+                <div>
+                  <button data-example="hello friend">
+                    hello friend <span>↗</span></button
+                  ><button data-example="thank you">
+                    thank you <span>↗</span></button
+                  ><button data-example="water please">
+                    water please <span>↗</span>
+                  </button>
+                </div>
+              </div>
+              <div class="options">
+                <label class="switch-label"
+                  ><input id="fingerspell" type="checkbox" checked /><span
+                    class="switch"
+                  ></span
+                  ><span>Fingerspell unknown words</span></label
+                ><span id="alphabet-status" class="option-hint"
+                  >Checking letter availability…</span
+                >
+              </div>
+              <div class="options sentence-options">
+                <label class="switch-label"><input id="sentence-mode" type="checkbox" /><span class="switch"></span><span>Use reviewed sentence orders (experimental)</span></label>
+                <p class="option-hint">Only explicitly reviewed constructions are supported; dictionary mode is the default.</p>
+              </div>
+              <button id="convert-button" class="primary-button">
+                Convert to signs <svg><use href="#i-arrow" /></svg>
+              </button>
+              <p class="keyboard-hint">
+                <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to convert
+                <span>Text stays in this workspace</span>
+              </p>
+            </section>
+            <section class="card output-card" aria-labelledby="output-heading">
+              <div class="card-heading">
+                <div class="heading-title">
+                  <span class="step-number">02</span>
+                  <h2 id="output-heading">Sign playback</h2>
+                </div>
+                <span id="player-state" class="player-state"
+                  >READY WHEN YOU ARE</span
+                >
+              </div>
+              <div id="stage" class="stage">
+                <div id="empty-stage" class="empty-stage">
+                  <div class="hand-orbit">
+                    <span class="orbit-dot dot-one"></span
+                    ><span class="orbit-dot dot-two"></span
+                    ><svg><use href="#i-hand" /></svg>
+                  </div>
+                  <h3>A new way to be understood.</h3>
+                  <p>
+                    Your sign sequence will appear here.<br />Start with a
+                    message on the left.
+                  </p>
+                  <span class="stage-language"
+                    >ENGLISH <svg><use href="#i-arrow" /></svg> ISL</span
+                  >
+                </div>
+                <video
+                  id="sign-video"
+                  playsinline
+                  muted
+                  preload="auto"
+                  hidden
+                  aria-label="Current sign video"
+                ></video>
+                <div id="video-caption" class="video-caption" hidden>
+                  <span id="current-label"></span
+                  ><span id="current-counter"></span>
+                </div>
+              </div>
+              <div class="playback-toolbar">
+                <span id="time-label">No sequence yet</span>
+                <div class="player-buttons">
+                  <button
+                    id="stop-button"
+                    class="icon-button"
+                    aria-label="Stop playback"
+                    disabled
+                  >
+                    <svg><use href="#i-stop" /></svg></button
+                  ><button
+                    id="play-button"
+                    class="play-button"
+                    aria-label="Play sequence"
+                    disabled
+                  >
+                    <svg><use href="#i-play" /></svg></button
+                  ><button
+                    id="next-button"
+                    class="icon-button"
+                    aria-label="Next sign"
+                    disabled
+                  >
+                    <svg><use href="#i-skip" /></svg>
+                  </button>
+                </div>
+                <label class="speed-label"
+                  ><span class="sr-only">Playback speed</span
+                  ><select id="playback-speed">
+                    <option value="0.5">0.5×</option>
+                    <option value="0.75">0.75×</option>
+                    <option value="1" selected>1×</option>
+                    <option value="1.25">1.25×</option>
+                  </select></label
+                >
+              </div>
+              <div id="source-credit" class="source-credit">
+                Sign videos retain their original source attribution.
+              </div>
+            </section>
+          </div>
+          <section class="card sequence-card">
+            <div class="card-heading">
+              <div class="heading-title">
+                <span class="sequence-icon">≋</span>
+                <h2>Your sign sequence</h2>
+                <span id="sequence-count" class="count-badge">0 signs</span>
+              </div>
+              <span id="sequence-metric" class="micro-label"
+                >PHRASE → WORD → LETTER</span
+              >
+            </div>
+            <div id="sequence-list" class="sequence-list">
+              <p class="sequence-placeholder">
+                Each sign becomes a step. Your sequence will be shown here after
+                conversion.
+              </p>
+            </div>
+            <div
+              id="warnings"
+              class="warnings"
+              role="status"
+              aria-live="polite"
+              hidden
+            ></div>
+            <div id="normalized" class="normalized" hidden></div>
+          </section>
+          <div class="bottom-row">
+            <div class="scope-note">
+              <svg><use href="#i-info" /></svg>
+              <p>
+                A dictionary-based bridge. This prototype sequences sign clips;
+                it does not translate English grammar into ISL.
+              </p>
+            </div>
+            <button id="library-link" class="text-button">
+              Explore the sign library <span>↗</span>
+            </button>
+          </div>
+          <div class="review-strip">
+            <div>
+              <span class="review-dot"></span
+              ><span id="review-summary">Loading sign library…</span>
+            </div>
+            <label
+              ><input id="preview-mode" type="checkbox" />Preview source clips
+              awaiting ISL review</label
+            >
+          </div>
+        </section>
+        <section id="library-view" class="view" hidden>
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">THE BUILDING BLOCKS</p>
+              <h1>A library of connection<span>.</span></h1>
+              <p class="page-subtitle">
+                Explore meanings, sources, and review status for every sign.
+              </p>
+            </div>
+          </div>
+          <div class="library-toolbar">
+            <label class="search-label"
+              ><span>Search signs</span
+              ><input
+                id="library-search"
+                type="search"
+                placeholder="Search by word or meaning…" /></label
+            ><span id="library-summary"></span>
+          </div>
+          <div class="library-filters">
+            <label
+              >Sign type<select id="library-type">
+                <option value="all">All signs</option>
+                <option value="word">Words</option>
+                <option value="phrase">Phrases</option>
+                <option value="alphabet">A–Z letters</option>
+              </select></label
+            >
+            <label
+              >Category<select id="library-category">
+                <option value="all">All categories</option>
+              </select></label
+            >
+            <p id="library-coverage"></p>
+          </div>
+          <div id="library-grid" class="library-grid"></div>
+          <div id="library-pagination" class="library-pagination">
+            <button id="library-previous">← Previous</button
+            ><span id="library-page" aria-live="polite"></span
+            ><button id="library-next">Next →</button>
+          </div>
+        </section>
+        <section id="about-view" class="view" hidden>
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">ABOUT SIGNBRIDGE</p>
+              <h1>Built for understanding<span>.</span></h1>
+              <p class="page-subtitle">
+                A text and speech to Indian Sign Language research prototype.
+              </p>
+            </div>
+          </div>
+          <div class="about-grid">
+            <article class="card prose">
+              <h2>How it works</h2>
+              <p>
+                Type an English message, or record and edit a speech transcript.
+                SignBridge matches the longest available phrase, then words,
+                then complete fingerspellings.
+              </p>
+              <p>Reviewed sentence mode supports only explicitly registered human-approved constructions. It flags other constructions rather than guessing their grammar.</p>
+              <h2>Clear about its scope</h2>
+              <p>
+                Joining dictionary clips is not grammatical ISL translation. ISL
+                has its own grammar, facial expressions, and spatial structure.
+                This prototype is a vocabulary and sequencing tool.
+              </p>
+              <h2>Review comes first</h2>
+              <p>
+                Approved mode uses only assets with playable media, checked
+                labels, recorded usage conditions, and a named ISL reviewer.
+                Source-preview mode is explicitly marked and may contain clips
+                still awaiting review.
+              </p>
+            </article>
+            <article class="card prose">
+              <h2>Source acknowledgement</h2>
+              <p>
+                Alphabet source: Elakkiya R and Rajalakshmi E, ISLAN, Mendeley
+                Data V1, DOI 10.17632/rc349j45m5.1. Licensed CC BY 4.0. Original
+                stills are presented as timed clips; the original double-handed
+                J motion is preserved. Independent ISL review remains pending.
+              </p>
+              <p>
+                Indian Sign Language Research and Training Centre, Department of
+                Empowerment of Persons with Disabilities, Ministry of Social
+                Justice and Empowerment, Government of India.
+              </p>
+              <p>
+                ISLRTC dictionary media are used for this non-commercial
+                research prototype, with acknowledgement. Source terms prohibit
+                resale or profiteering.
+              </p>
+              <a
+                href="https://islrtc.nic.in/faq/"
+                target="_blank"
+                rel="noopener"
+                >Read ISLRTC’s dictionary FAQ ↗</a
+              >
+              <h2>Local speech processing</h2>
+              <button id="download-quality" type="button">Download playback quality report</button>
+              <p>The report contains this session’s timing and playback outcomes, without message text or audio. Keep this page open until testing finishes.</p>
+              <p>
+                Audio is transcribed on this computer using faster-whisper. The
+                model downloads on first use. Uploaded audio is removed after
+                processing; it is not sent to a hosted transcription service.
+              </p>
+            </article>
+          </div>
+        </section>
+        <footer class="page-footer">
+          <span
+            >SignBridge <span>·</span> Small gestures. Shared
+            understanding.</span
+          ><span
+            >Made for a more connected world
+            <span class="footer-spark">✳</span></span
+          >
+        </footer>
+      </main>
+    </div>
+    <div id="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "name": "signbridge-browser-checks",
+  "private": true,
+  "type": "module",
+  "scripts": {"test": "node --test text_to_sign/tests/browser-state.test.mjs"},
+  "devDependencies": {"jsdom": "^26.1.0"}
+}

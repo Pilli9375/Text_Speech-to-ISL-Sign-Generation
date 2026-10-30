@@ -1,0 +1,64 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SignBridge recorder diagnostics</title>
+<style>body{font:15px system-ui;margin:25px;color:#173b36;background:#f6f7f3}button,input{font:inherit;padding:10px;margin:8px 8px 8px 0}#result{padding:15px;background:#e8efdc;white-space:pre-wrap}iframe{width:100%;height:640px;border:1px solid #ccd7c2;border-radius:10px}</style>
+<h1>Recorder integration diagnostics</h1><p>This opt-in local test substitutes an audio-file stream for the microphone. It uses the browser’s actual MediaRecorder and the local transcription endpoint. It never records the room or requests microphone permission.</p>
+<label>Synthetic speech WAV <input id="sample" type="file" accept=".wav"></label>
+<button id="record">Test actual MediaRecorder with file stream</button><button id="deny">Test microphone denied</button><button id="media-error">Test missing-media recovery</button><pre id="result" role="status">Choose the generated speech-smoke.wav to begin.</pre>
+<iframe id="app" src="/" title="SignBridge under test"></iframe>
+<script>
+const frame=document.getElementById('app'),result=document.getElementById('result');
+const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function until(check,timeout=90000){const end=Date.now()+timeout;while(Date.now()<end){if(check())return;await delay(100);}throw new Error('Timed out waiting for the expected app state');}
+function setMedia(w,getUserMedia){Object.defineProperty(w.navigator,'mediaDevices',{configurable:true,value:{getUserMedia}});}
+document.getElementById('record').onclick=async()=>{
+ let context;
+ try{
+  const file=document.getElementById('sample').files[0];if(!file)throw new Error('Choose the synthetic speech-smoke.wav first.');
+  result.textContent='Running: decoding the supplied synthetic audio…';
+  const w=frame.contentWindow,d=w.document;
+  d.getElementById('clear-button').click();d.getElementById('speech-tab').click();
+  context=new AudioContext();await context.resume();
+  const buffer=await context.decodeAudioData(await file.arrayBuffer());
+  const source=context.createBufferSource();source.buffer=buffer;
+  const destination=context.createMediaStreamDestination();source.connect(destination);
+  setMedia(w,async()=>destination.stream);
+  d.getElementById('record-button').click();
+  await until(()=>d.getElementById('record-button').getAttribute('aria-label')==='Stop recording');
+  source.start();result.textContent='Running: actual MediaRecorder captures synthetic speech; no microphone is used…';
+  await delay((buffer.duration+.25)*1000);d.getElementById('record-button').click();
+  await until(()=>d.getElementById('record-heading').textContent==='Your transcript is ready');
+  const text=d.getElementById('message').value;
+  if(!/hello friend/i.test(text))throw new Error('Unexpected transcript: '+text);
+  if(d.getElementById('sequence-count').textContent!=='0 signs')throw new Error('Transcription generated signs before confirmation');
+  result.textContent='PASS · Actual MediaRecorder → WebM upload → local ASR → editable transcript.\n'+text+'\nNo sequence generated before explicit conversion.';
+ }catch(error){result.textContent='FAIL · '+error.message;}finally{if(context)await context.close();}
+};
+document.getElementById('deny').onclick=async()=>{
+ try{
+  const w=frame.contentWindow,d=w.document;d.getElementById('clear-button').click();d.getElementById('speech-tab').click();
+  setMedia(w,async()=>{throw new w.DOMException('Synthetic permission denial','NotAllowedError');});
+  d.getElementById('record-button').click();
+  await until(()=>d.getElementById('toast').textContent.includes('permission was declined'));
+  if(d.getElementById('record-button').disabled||d.getElementById('upload-button').disabled)throw new Error('Controls stayed disabled');
+  result.textContent='PASS · Simulated permission denial shows recovery feedback; upload and typed input remain available.';
+ }catch(error){result.textContent='FAIL · '+error.message;}
+};
+document.getElementById('media-error').onclick=async()=>{
+ const w=frame.contentWindow,d=w.document,originalFetch=w.fetch;
+ try{
+  d.getElementById('clear-button').click();d.getElementById('text-tab').click();
+  d.getElementById('preview-mode').checked=true;d.getElementById('preview-mode').dispatchEvent(new w.Event('change'));
+  w.fetch=async(url,options)=>{
+   const response=await originalFetch.call(w,url,options);
+   if(url!=='/api/convert')return response;
+   const data=await response.json();data.sequence[0].url='/api/media/diagnostic_missing';
+   return new w.Response(JSON.stringify(data),{status:200,headers:{'Content-Type':'application/json'}});
+  };
+  d.getElementById('message').value='hello friend';d.getElementById('convert-button').click();
+  await until(()=>d.getElementById('sequence-count').textContent==='2 signs');
+  d.getElementById('play-button').click();
+  await until(()=>d.getElementById('player-state').textContent==='SEQUENCE COMPLETE');
+  if(!d.getElementById('warnings').textContent.includes('Asset unavailable'))throw new Error('Missing-media warning absent');
+  result.textContent='PASS · A real HTTP 404 media response was reported, skipped, and the remaining friend clip completed.';
+ }catch(error){result.textContent='FAIL · '+error.message;}finally{w.fetch=originalFetch;}
+};
+</script></html>

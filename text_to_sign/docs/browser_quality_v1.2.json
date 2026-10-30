@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "outcome": "completed",
+      "clip_count": 4,
+      "ended_clips": 4,
+      "started_playback": true,
+      "submit_to_loaded_ms": 87.20000000298023,
+      "stall_count": 0,
+      "stall_ms": 0,
+      "media_errors": 0,
+      "transition_gaps_ms": [
+        4,
+        1.6000000014901161,
+        1.1000000014901161
+      ],
+      "dropped_video_frames": 0,
+      "elapsed_ms": 9178.30000000447
+    },
+    {
+      "outcome": "completed",
+      "clip_count": 3,
+      "ended_clips": 3,
+      "started_playback": true,
+      "submit_to_loaded_ms": 70,
+      "stall_count": 0,
+      "stall_ms": 0,
+      "media_errors": 0,
+      "transition_gaps_ms": [
+        3.8000000044703484,
+        3.600000001490116
+      ],
+      "dropped_video_frames": 0,
+      "elapsed_ms": 13563.89999999851
+    },
+    {
+      "outcome": "completed",
+      "clip_count": 1,
+      "ended_clips": 1,
+      "started_playback": true,
+      "submit_to_loaded_ms": 41.100000001490116,
+      "stall_count": 0,
+      "stall_ms": 0,
+      "media_errors": 0,
+      "transition_gaps_ms": [],
+      "dropped_video_frames": 0,
+      "elapsed_ms": 7067
+    },
+    {
+      "outcome": "completed",
+      "clip_count": 3,
+      "ended_clips": 3,
+      "started_playback": true,
+      "submit_to_loaded_ms": 46.599999994039536,
+      "stall_count": 0,
+      "stall_ms": 0,
+      "media_errors": 0,
+      "transition_gaps_ms": [
+        4.5,
+        3.6999999955296516
+      ],
+      "dropped_video_frames": 0,
+      "elapsed_ms": 17593.69999999553
+    }
+  ]
+}

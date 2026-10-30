@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.env
+.cache/
+node_modules/
+build/
+*.egg-info/
+dist/
+tmp/
+artifacts/
+text_to_sign/signs/**/*.mp4
+text_to_sign/signs/**/*.webm
+text_to_sign/signs/**/*.mov
+!text_to_sign/signs/**/.gitkeep

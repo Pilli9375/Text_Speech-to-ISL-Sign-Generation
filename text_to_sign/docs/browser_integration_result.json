@@ -1,0 +1,15 @@
+{
+  "test_date": "2026-10-30",
+  "recording_source": "Synthetic Windows System.Speech WAV fed into Web Audio MediaStream; no room microphone captured",
+  "actual_MediaRecorder": true,
+  "output_container": "WebM/Opus",
+  "transcription_expected": "Hello friend. Thank you. Please help me. I need water.",
+  "transcription_observed": "Hello friend. Thank you. Please help me. I need water.",
+  "explicit_conversion_required": true,
+  "simulated_permission_denial": "PASS; feedback shown, recording/upload buttons enabled",
+  "physical_microphone_hardware": "Not captured; requires user interaction",
+  "missing_media_http_404": "PASS; failed clip visibly skipped and friend completed",
+  "alphabet_playback": "PASS; actual J-A-Z-Z reached SEQUENCE COMPLETE",
+  "mobile_390px": "PASS; document width 375px",
+  "alphabet_restore": "PASS; missing A clip regenerated from pinned original with identical SHA256"
+}

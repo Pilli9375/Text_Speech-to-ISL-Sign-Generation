@@ -1,0 +1,30 @@
+[project]
+name = "signbridge"
+version = "1.2.0"
+description = "A local text and speech to Indian Sign Language asset-sequencing prototype"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.30,<1",
+  "python-multipart>=0.0.18,<1",
+  "faster-whisper>=1.1,<2",
+  "av>=13,<17",
+  "pillow>=11,<13",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10", "httpx>=0.27,<1"]
+[tool.pytest.ini_options]
+testpaths = ["text_to_sign/tests"]
+pythonpath = ["."]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["text_to_sign*"]
+exclude = ["text_to_sign.tests*"]
+
+[tool.setuptools.package-data]
+text_to_sign = ["web/*", "data/*.json", "data/metadata/*.csv", "data/evaluation/*.json"]

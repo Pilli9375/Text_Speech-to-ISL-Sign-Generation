@@ -1,0 +1,108 @@
+{
+  "version": "1.1.0",
+  "date": "2026-10-30",
+  "previous_word_phrase_clips": 20,
+  "word_phrase_clips": 355,
+  "types": {
+    "word": 339,
+    "phrase": 16,
+    "alphabet": 26
+  },
+  "total_clips": 381,
+  "previewable": 381,
+  "ready": 0,
+  "categories": {
+    "Feelings & health": 29,
+    "Places & travel": 34,
+    "Time & numbers": 42,
+    "Questions & descriptions": 34,
+    "Daily actions": 31,
+    "Food & drink": 39,
+    "People & family": 41,
+    "Learning & work": 39,
+    "Objects & nature": 39,
+    "Greetings & essentials": 27,
+    "Alphabet": 26
+  },
+  "full_decoded": 381,
+  "frames": 36985,
+  "seconds": 1486.91,
+  "bytes": 852302672,
+  "conversion_examples": [
+    {
+      "input": "please give me water",
+      "expected": [
+        "please",
+        "give",
+        "i",
+        "water"
+      ],
+      "observed": [
+        "please",
+        "give",
+        "i",
+        "water"
+      ],
+      "passed": true
+    },
+    {
+      "input": "I don't understand",
+      "expected": [
+        "i don't understand"
+      ],
+      "observed": [
+        "i don't understand"
+      ],
+      "passed": true
+    },
+    {
+      "input": "school teacher student book",
+      "expected": [
+        "school",
+        "teacher",
+        "student",
+        "book"
+      ],
+      "observed": [
+        "school",
+        "teacher",
+        "student",
+        "book"
+      ],
+      "passed": true
+    },
+    {
+      "input": "doctor hospital medicine",
+      "expected": [
+        "doctor",
+        "hospital",
+        "medicine"
+      ],
+      "observed": [
+        "doctor",
+        "hospital",
+        "medicine"
+      ],
+      "passed": true
+    },
+    {
+      "input": "good afternoon",
+      "expected": [
+        "good afternoon"
+      ],
+      "observed": [
+        "good afternoon"
+      ],
+      "passed": true
+    }
+  ],
+  "python_tests": 59,
+  "javascript_tests": 14,
+  "browser_checks": {
+    "pagination": "Page 2 of 16 displayed",
+    "category_food": "39 entries displayed",
+    "phrase_search": "1 matching phrase entry",
+    "new_phrase_playback": "Actual 1920x1080 video playing; 4.52 seconds",
+    "visible_counts": "339 words / 16 phrases / 26 letters"
+  }
+}
